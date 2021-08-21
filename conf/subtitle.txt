@@ -1,0 +1,1 @@
+General purpose management system. Written in c++. Made by @hanilr.
