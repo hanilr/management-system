@@ -62,3 +62,14 @@ Clear:  ` make clear ` Delete all compiled files.
 User: ` fetch_value() ` ` change_value() ` ` freeze_account() ` ` unfreeze_account() `    
 
 Admin: ` create_account() ` ` delete_account() ` ` ban_account() ` ` unban_account() ` ` ban_check() ` ` freeze_check() ` ` reset_conf() ` ` add_conf() ` ` delete_conf() ` ` check_conf() ` ` change_conf() ` ` change_pass() ` 
+
+## MY CODING FAULTS
+1. Do not use ` using namespace std; ` especially in header files.
+
+2. Do not use global variables.
+
+3. Do use void instead of "int func() { return 0; }"
+
+4. Avoid from goto.
+
+5. Becareful about string arguments in functions.
