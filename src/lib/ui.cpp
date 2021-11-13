@@ -5,13 +5,10 @@
 #include "file.hpp"
 #include "config.hpp"
 #include "ui.hpp"
-using namespace std;
 
-string cwebsite = check_conf("website");
-string cwidth = check_conf("terminal-width");
-int temp_width;
 
-void nline(int count) { for(count; 0<count; count-=1) { cout << endl; } }
+
+void nline(int count) { for(count; 0<count; count-=1) { std::cout << std::endl; } }
 
 void clrscr(void)
 {
@@ -22,14 +19,14 @@ void clrscr(void)
     #endif
 }
 
-void repeater(string temp_str, int count)
+void repeater(std::string temp_str, int count)
 {
-    for(count; 0<count; count-=1) { cout << temp_str; }
+    for(count; 0<count; count-=1) { std::cout << temp_str; }
 } // NEED TO BE IN NEW LINE BEFORE USE
 
-void in_center(string temp_str)
+void in_center(std::string temp_str)
 {
-    string terminal_width = rfile("conf/terminal-width.txt");
+    std::string terminal_width = rfile("conf/terminal-width.txt");
     int temp_width, temp_len = temp_str.length();
     sscanf(terminal_width.c_str(), "%d", &temp_width);
 
@@ -40,22 +37,26 @@ void in_center(string temp_str)
     else { temp_len = (temp_len-1)/2; }
 
     repeater(" ", temp_width-temp_len);
-    cout << temp_str << endl;
+    std::cout << temp_str << std::endl;
 } // WILL BE NEW LINE AFTER USE
 
 void feedback(void)
 {
+    std::string cwebsite = check_conf("website");
+
     #ifdef _WIN32
-        string full_path = "start " + cwebsite;
+        std::string full_path = "start " + cwebsite;
         system(full_path.c_str());
     #elif __unix__
-        string full_path = "xdg-open " + cwebsite;
+        std::string full_path = "xdg-open " + cwebsite;
         system(full_path.c_str());
     #endif
 }
 
-void poster(string temp_str)
+void poster(std::string temp_str)
 {
+    std::string cwidth = check_conf("terminal-width");
+    int temp_width;
     sscanf(cwidth.c_str(), "%d", &temp_width);
 
     clrscr();
@@ -63,12 +64,15 @@ void poster(string temp_str)
     nline(1);
     in_center(temp_str);
     repeater("_", temp_width);
-    cout << " [ (e) Exit ] |> ";
+    std::cout << " [ (e) Exit ] |> ";
 }
 
-string menu(string commemnt, string choice)
+std::string menu(std::string commemnt, std::string choice)
 {
-    string temp_select, temp_str = " (1) " + choice;
+    std::string cwidth = check_conf("terminal-width");
+
+    int temp_width;
+    std::string temp_select, temp_str = " (1) " + choice;
     sscanf(cwidth.c_str(), "%d", &temp_width);
 
     clrscr();
@@ -84,16 +88,18 @@ string menu(string commemnt, string choice)
 
     // CHOICES
     repeater("_", temp_width);
-    cout << " |> ";
-    cin >> temp_select;
+    std::cout << " |> ";
+    std::cin >> temp_select;
 
     return temp_select;
 }
 
-void category(string first_choice, string second_choice, int result_int, int line ,int temp_width)
+void category(std::string first_choice, std::string second_choice, int result_int, int line ,int temp_width)
 {
-    cout << first_choice;
+    std::cout << first_choice;
     repeater(" ", temp_width-result_int);
-    cout << second_choice;
+    std::cout << second_choice;
     nline(line);
 }
+
+// MADE BY @hanilr

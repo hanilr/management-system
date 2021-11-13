@@ -3,17 +3,16 @@
 #ifndef _CONFIG_HPP
 #define _CONFIG_HPP
 
-#include <iostream>
-using namespace std;
+std::string check_conf(std::string conf_name);
 
-string check_conf(string conf_name);
+void reset_conf(void);
 
-int reset_conf(void);
+void add_conf(std::string conf_name, std::string conf_set);
 
-int add_conf(string conf_name, string conf_set);
+void del_conf(std::string conf_name);
 
-int del_conf(string conf_name);
-
-int change_conf(string conf_name, string conf_set);
+void change_conf(std::string conf_name, std::string conf_set);
 
 #endif // FUNCTION NAMES ARE VERY CLEAR SO I DIDN'T WRITE ANY COMMENT IN HERE
+
+// MADE BY @hanilr

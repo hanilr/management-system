@@ -3,17 +3,14 @@
 #ifndef _FILE_HPP
 #define _FILE_HPP
 
-#include <iostream>
-using namespace std;
+void wfile(std::string file_path, std::string file_string); // WRITE IN FILE
 
-int wfile(string file_path, string file_string); // WRITE IN FILE
+std::string rfile(std::string file_path); // READ IN FILE (ONLY FIRST LINE)
 
-string rfile(string file_path); // READ IN FILE (ONLY FIRST LINE)
+void cfile(std::string file_path); // CREATE A FILE
 
-int cfile(string file_path); // CREATE A FILE
+void dfile(std::string file_path); // DELETE A FILE
 
-int dfile(string file_path); // DELETE A FILE
+void wlog(std::string user_name, std::string log); // WRITE LOG
 
-int wlog(string user_name, string log); // WRITE LOG
-
-#endif
+#endif // MADE BY @hanilr

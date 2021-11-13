@@ -7,16 +7,8 @@
 #include "lib/user.hpp"
 #include "lib/admin.hpp"
 #include "lib/ui.hpp"
-using namespace std;
 
-string ctitle = check_conf("title");
-string csubtitle = check_conf("subtitle");
-string cversion = check_conf("version");
-string cfeedback = check_conf("feedback");
-
-string temp_select, null;
-
-void top_menu(int temp_width, string mtitle, string msubtitle)
+void top_menu(int temp_width, std::string mtitle, std::string msubtitle)
 {
     clrscr();
     repeater("_", temp_width);
@@ -32,29 +24,35 @@ void top_menu(int temp_width, string mtitle, string msubtitle)
 
 void bottom_menu(int temp_width)
 {
-    string cwebsite = check_conf("website");
+    std::string cversion = check_conf("version");
+    std::string cwebsite = check_conf("website");
+    
     nline(3);
-    cout << " (e) EXIT";
+    std::cout << " (e) EXIT";
     repeater(" ", temp_width-22);
-    cout << "FEEDBACK (f) ";
+    std::cout << "FEEDBACK (f) ";
     nline(1);
 
     repeater("_", temp_width);
     nline(1);
     // VERSION & WEBSITE
 
-    cout << " " << cwebsite;
+    std::cout << " " << cwebsite;
     repeater(" ", temp_width-cversion.length()-cwebsite.length()-2);
-    cout << cversion << " " << endl;
+    std::cout << cversion << " " << std::endl;
 
     // VERSION & WEBSITE
     repeater("_", temp_width);
     nline(1);
-    cout << " |> ";
+    std::cout << " |> ";
 }
 
-string user_menu(string user_name, string user_pass, int temp_width)
+std::string user_menu(std::string user_name, std::string user_pass, int temp_width)
 {
+    std::string temp_select;
+    std::string ctitle = check_conf("title");
+    std::string csubtitle = check_conf("subtitle");
+
     top_menu(temp_width, ctitle, csubtitle);
     // CHOICES
 
@@ -63,14 +61,15 @@ string user_menu(string user_name, string user_pass, int temp_width)
 
     // CHOICES
     bottom_menu(temp_width);
-    cin >> temp_select;
+    std::cin >> temp_select;
 
     return temp_select;
 }
 
-string first_menu(string user_name, string user_pass, int temp_width)
+std::string first_menu(std::string user_name, std::string user_pass, int temp_width)
 {
-    string temp_value = fetch_value(user_name, user_pass);
+    std::string temp_select;
+    std::string temp_value = fetch_value(user_name, user_pass);
 
     top_menu(temp_width, "VALUE:", temp_value);
     // CHOICES
@@ -80,15 +79,16 @@ string first_menu(string user_name, string user_pass, int temp_width)
 
     // CHOICES
     bottom_menu(temp_width);
-    cin >> temp_select;
+    std::cin >> temp_select;
 
     return temp_select;
 }
 
-string second_menu(string user_name, string user_pass, int temp_width)
+std::string second_menu(std::string user_name, std::string user_pass, int temp_width)
 {
-    string temp_value = fetch_value(user_name, user_pass);
-    string temp_str = " (1) CHANGE INSTEAD OF [" + temp_value + "]";
+    std::string temp_select;
+    std::string temp_value = fetch_value(user_name, user_pass);
+    std::string temp_str = " (1) CHANGE INSTEAD OF [" + temp_value + "]";
 
     top_menu(temp_width, "CHANGE VALUE", "Use first choice to change value.");
     // CHOICES
@@ -98,14 +98,15 @@ string second_menu(string user_name, string user_pass, int temp_width)
 
     // CHOICES
     bottom_menu(temp_width);
-    cin >> temp_select;
+    std::cin >> temp_select;
 
     return temp_select;
 }
 
-string third_menu(string user_name, string user_pass, int temp_width)
+std::string third_menu(std::string user_name, std::string user_pass, int temp_width)
 {
-    string temp_value = fetch_value(user_name, user_pass);
+    std::string temp_select;
+    std::string temp_value = fetch_value(user_name, user_pass);
 
     top_menu(temp_width, "FREEZE ACCOUNT", "Are you sure you want to freeze your account?");
     // CHOICES
@@ -115,14 +116,15 @@ string third_menu(string user_name, string user_pass, int temp_width)
 
     // CHOICES
     bottom_menu(temp_width);
-    cin >> temp_select;
+    std::cin >> temp_select;
 
     return temp_select;
 }
 
-string fourth_menu(string user_name, string user_pass, int temp_width)
+std::string fourth_menu(std::string user_name, std::string user_pass, int temp_width)
 {
-    string temp_value = fetch_value(user_name, user_pass);
+    std::string temp_select;
+    std::string temp_value = fetch_value(user_name, user_pass);
 
     top_menu(temp_width, "UNFREEZE ACCOUNT", "Are you sure you want to unfreeze your account?");
     // CHOICES
@@ -132,25 +134,24 @@ string fourth_menu(string user_name, string user_pass, int temp_width)
 
     // CHOICES
     bottom_menu(temp_width);
-    cin >> temp_select;
+    std::cin >> temp_select;
 
     return temp_select;
 }
 
 int main()
 {
-    NEW_USER:
-    string cwidth = check_conf("terminal-width");
+    std::string cwidth = check_conf("terminal-width");
     int count = 1, temp_width;
-    string usr, pass, temp_str;
+    std::string usr, pass, temp_str, temp_select;
     sscanf(cwidth.c_str(), "%d", &temp_width);
     
     // LOGIN SCREEN
     top_menu(temp_width, "LOG IN", "Please enter your username and password.");
-    cout << "USERNAME: ";
-    cin >> usr;
-    cout << "PASSWORD: ";
-    cin >> pass;
+    std::cout << "USERNAME: ";
+    std::cin >> usr;
+    std::cout << "PASSWORD: ";
+    std::cin >> pass;
 
     if(freeze_check(usr) == 1) { poster("YOUR ACCOUNT IS FROZEN"); }
     else if(ban_check(usr) == 1)
@@ -161,7 +162,7 @@ int main()
     else { poster("FREEZE AND BAN CHECK IS SUCCESS"); }
 
 
-    string full_path = "data/" + usr + "/" + pass + ".txt";
+    std::string full_path = "data/" + usr + "/" + pass + ".txt";
     temp_str = rfile(full_path);
     if(temp_str.compare("") == 0)
     {
@@ -176,17 +177,15 @@ int main()
         temp_select = user_menu(usr, pass, temp_width);
         if(temp_select == "1")
         {
-            BACK_FIRST:
-            string temp_choice = first_menu(usr, pass, temp_width);
+            std::string temp_choice = first_menu(usr, pass, temp_width);
             if(temp_select == "1")
             {
-                string answer, full_path = "data/" + usr + "/" + pass + ".txt";
+                std::string answer, full_path = "data/" + usr + "/" + pass + ".txt";
                 clrscr();
                 top_menu(temp_width, "ENTER VALUE", "Please enter new value.");
-                cout << " [ (e) exit ] |> ";
-                cin >> answer;
+                std::cout << " [ (e) exit ] |> ";
+                std::cin >> answer;
 
-                if(answer == "e" || answer == "") { goto BACK_FIRST; }
                 dfile(full_path);
                 wfile(full_path, answer);
             }
@@ -198,11 +197,11 @@ int main()
             temp_select = second_menu(usr, pass, temp_width);
             if(temp_select == "1")
             {
-                string answer, full_path = "data/" + usr + "/" + pass + ".txt";
+                std::string answer, full_path = "data/" + usr + "/" + pass + ".txt";
                 clrscr();
                 top_menu(temp_width, "ENTER VALUE", "Please enter new value.");
-                cout << " |> ";
-                cin >> answer;
+                std::cout << " |> ";
+                std::cin >> answer;
 
                 if(answer == "e") { second_menu(usr ,pass, temp_width); }
                 dfile(full_path);
@@ -213,25 +212,18 @@ int main()
         }
         else if(temp_select == "3")
         {
-            BACK_THIRD:
             temp_select = third_menu(usr, pass, temp_width);
             if(temp_select == "1")
             {
                 freeze_account(usr);
-                goto BACK_THIRD;
             }
             else if(temp_select == "e") { count -=1; }
             else if(temp_select == "f") { feedback(); }
         }
         else if(temp_select == "4")
         {
-            BACK_FOURTH:
             temp_select = fourth_menu(usr, pass, temp_width);
-            if(temp_select == "1")
-            {
-                unfreeze_account(usr);
-                goto BACK_FOURTH;
-            }
+            if(temp_select == "1") { unfreeze_account(usr); }
             else if(temp_select == "e") { count -=1; }
             else if(temp_select == "f") { feedback(); }
         }
@@ -239,6 +231,5 @@ int main()
         else if(temp_select == "f") { feedback(); }
     }
     // LOOP
-    goto NEW_USER;
     return 0;
-}
+} // MADE BY @hanilr

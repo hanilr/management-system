@@ -25,7 +25,7 @@ control:
 test:
 	c++ src/test.cpp $(test) -o test.exe
 
-clear: # DELETE EVERY ".exe" FILE
+clean: # DELETE EVERY ".exe" FILE
 	del *.exe
 
 else
@@ -43,9 +43,9 @@ control:
 test:
 	g++ src/test.cpp $(test) -o test
 
-clear: # REMOVE ALL COMPLIED FILES
+clean: # REMOVE ALL COMPLIED FILES
 	rm $(user_name)
 	rm $(control_name)
 	rm test
 
-endif
+endif # MADE BY @hanilr #

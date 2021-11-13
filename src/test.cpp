@@ -7,13 +7,12 @@
 #include "lib/user.hpp"
 #include "lib/admin.hpp"
 #include "lib/ui.hpp"
-using namespace std;
-
-string temp_str;
-int temp_int;
 
 int main()
 {
+    std::string temp_str;
+    int temp_int;
+
     // FILE
     wfile("foo.txt", "bar"); // WRITE IN A FILE
     temp_str = rfile("foo.txt"); // READ A FILE
